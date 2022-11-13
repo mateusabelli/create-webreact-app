@@ -10,7 +10,7 @@
 With NPM:
 
 ```bash
-$ npm create webreact-app
+$ npm create webreact-app@latest
 ```
 
 With Yarn:
