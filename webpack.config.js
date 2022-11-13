@@ -7,7 +7,7 @@ module.exports = (env) => {
   return {
     mode: env.production ? 'production' : 'development',
     devtool: env.production ? 'nosources-source-map' : 'eval-source-map',
-    entry: path.resolve(__dirname, 'src', 'main.jsx'),
+    entry: path.resolve(__dirname, 'src', 'main.tsx'),
     output: {
       path: path.resolve(__dirname, 'dist'),
       filename: 'main.js',
@@ -16,11 +16,11 @@ module.exports = (env) => {
     module: {
       rules: [
         {
-          test: /\.js|jsx$/,
+          test: /\.tsx$/,
           exclude: /node_modules/,
           use: 'babel-loader',
           resolve: {
-            extensions: ['.jsx'],
+            extensions: ['.tsx'],
           },
         },
         {
