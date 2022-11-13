@@ -16,8 +16,16 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "engines": {
-    "node": "^14.8.0 || >=16.0.0"
+    "node": ">=14.8.0"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mateusabelli/create-webreact-app.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mateusabelli/create-webreact-app/issues"
+  },
+  "homepage": "https://github.com/mateusabelli/create-webreact-app/#readme",
   "keywords": [
     "react",
     "webpack",
