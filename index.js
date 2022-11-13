@@ -9,7 +9,7 @@ import fs from 'fs'
 import util from 'util'
 const myExec = util.promisify(exec)
 
-const projectNameRegex = new RegExp('\w|\d_|-', 'g')
+const projectNameRegex = new RegExp('\w|\d_|-')
 const repository = 'https://github.com/mateusabelli/create-webreact-app.git'
 let projectName = 'my-webreact-app'
 let projectPath = ''
@@ -57,7 +57,7 @@ async function getProjectTemplate() {
 
 await getProjectTemplate()
 
-async function handleAnswer(answer) {
+async function handleAnswer(isTypescript) {
   const bootstrapMsg = `
   You're good to go, now run:
 
@@ -66,10 +66,10 @@ async function handleAnswer(answer) {
   npm run dev
   `
 
-  if (answer === 'Yes') {
+  if (isTypescript === 'Yes') {
     const spinner = createSpinner(`Creating project at ${projectPath}`).start()
 
-    await myExec(`git clone --branch react ${repository} ${projectName}`, async (error) => {
+    await myExec(`git clone --branch react-ts ${repository} ${projectName}`, async (error) => {
       if (error) {
         handleFailure(`error: ${error.message}`)
       }
@@ -85,11 +85,17 @@ async function handleAnswer(answer) {
   } else {
     const spinner = createSpinner(`Creating project at ${projectPath}`).start()
 
-    await sleep()
+    await myExec(`git clone --branch react ${repository} ${projectName}`, async (error) => {
+      if (error) {
+        handleFailure(`error: ${error.message}`)
+      }
 
-    spinner.success()
-    console.log(bootstrapMsg)
+      await fs.promises.rm(`${projectPath}/.git`, { recursive: true, force: true })
 
-    return process.exit(0)
+      spinner.success()
+      console.log(bootstrapMsg)
+
+      return process.exit(0)
+    })
   }
 }
